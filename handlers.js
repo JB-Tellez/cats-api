@@ -34,13 +34,23 @@ async function deleteCat(request, response) {
   const id = request.params.id;
 
   try {
-    response.status(204).send('success');
     await Cat.findByIdAndDelete(id);
+    response.status(204).send('success');
   } catch (error) {
     console.error(error);
     response.status(404).send(`Unable to delete cat with id ${id}`);
   }
-
 }
 
-module.exports = { readCats, createCat, deleteCat };
+async function updateCat(request, response) {
+  const id = request.params.id;
+  try {
+    await Cat.findByIdAndUpdate(id, request.body);
+    response.status(204).send('success');
+  } catch (error) {
+    console.error(error);
+    response.status(404).send(`Unable to update cat with id ${id}`);
+  }
+}
+
+module.exports = { readCats, createCat, deleteCat, updateCat };
