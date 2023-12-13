@@ -1,7 +1,5 @@
 const Cat = require('./models/cat');
 
-
-
 async function readCats(request, response) {
   const filterQuery = {};
 
@@ -44,13 +42,13 @@ async function deleteCat(request, response) {
 
 async function updateCat(request, response) {
   const id = request.params.id;
+
   try {
-    await Cat.findByIdAndUpdate(id, request.body);
-    response.status(204).send('success');
+    await Cat.findByIdAndUpdate(id, request.body); // NOTE: works as is because the request body is the EXACT same shape as cat data
+    response.status(200).send('success');
   } catch (error) {
-    console.error(error);
-    response.status(404).send(`Unable to update cat with id ${id}`);
+    response.status(500).send(error.message);
   }
 }
 
-module.exports = { readCats, createCat, deleteCat, updateCat };
+module.exports = { readCats, createCat, updateCat, deleteCat };

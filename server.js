@@ -10,7 +10,7 @@ const app = express();
 
 // middleware
 app.use(cors());
-app.use(express.json()); // new
+app.use(express.json());
 
 // database
 mongoose.connect(process.env.MONGODB_URI);
